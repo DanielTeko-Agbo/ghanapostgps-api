@@ -112,6 +112,6 @@ class GhanaPostGPS:
             self.driver.switch_to.alert.accept()
 
 
-if __name__ == "__main__":
-    m = GhanaPostGPS()
-    print(m.gps_to_loc("GW-0545-2757"))
+# if __name__ == "__main__":
+#     m = GhanaPostGPS()
+#     print(m.gps_to_loc("GW-0545-2757"))

@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Query, Path, status
 from worker import GhanaPostGPS
 from pydantic import BaseModel, Field
 import logging
+import uvicorn
 
 logging.basicConfig(
     format="%(asctime)s - %(funcName)s -  %(levelname)s => %(message)s",
@@ -27,7 +28,7 @@ class AddressDetails(BaseModel):
     latitude: float
 
 
-@app.get("/details", response_model=AddressDetails)
+@app.get("/details", response_model=AddressDetails, tags=["Address Details"])
 def get_location(
     address: str = Query(title="The Address to be worked on.", example="GA-0591-9131")
 ):
@@ -51,3 +52,7 @@ def get_location(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Unable to retrieve details for {address}. Check and re-enter address.",
         )
+
+
+if __name__=="__main__":
+    uvicorn.run(app, host='0.0.0.0', port=8000)
